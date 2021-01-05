@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- html结构 -->
+    <div id="app">
+        <!-- v-on:click表示鼠标单击 -->
+        <input type="button" value="v-on指令" v-on:click="doIT">
+        <!-- @click等价于v-on:click -->
+        <input type="button" value="v-on简写" @click="doIT">
+        <!-- @dblclick 表示鼠标双击 -->
+        <input type="button" value="双击事件" @dblclick="doIT">
+        <h2 @click="changeFood">{{ food }}</h2>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        // 创建Vue实例
+        var app = new Vue({
+            el:"#app",
+            data:{
+                food:"西蓝花炒鸡蛋"
+            },
+            methods:{
+                doIT:function(){
+                    alert('你好鸭');
+                },
+                changeFood:function(){
+                    // console.log(this.food);
+                    this.food += '真美味！'
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

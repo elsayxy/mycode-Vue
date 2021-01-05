@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<body>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- el挂载点以外的区域，取值无效 -->
+    {{ message }}
+    <!-- 除了div以外，其他标签也支持。注意：只支持双标签，单标签不支持 -->
+    <!-- 开发中，建议使用div -->
+    <div id="app" class="app">
+        {{ message }}
+        <span>
+            <!-- el挂载点以内的区域，可以多次取值 -->
+            {{ message }}
+        </span>
+    </div>
+    <script>
+        var app = new Vue({
+            // el:'#app',  // id选择器，注意：开发中建议使用id选择器
+            // el:'.app',  // class选择器
+            el:'div',  // 标签选择器
+            data:{
+                message:'程序员，你好'
+            }
+        })
+    </script>
+</body>
+</html>

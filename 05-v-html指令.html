@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- html结构 -->
+    <div id="app">
+        <p v-html="content"></p>
+        <p v-text="content"></p>
+        <!-- 1、对于普通文本，v-html和v-text没有差异 -->
+
+        <p v-html="content2"></p>
+        <p v-text="content2"></p>
+        <!-- 2、如果包含html标签，v-html能够将标签解析后显示，v-text不能解析标签 -->
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 创建Vue结构 -->
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                content:"程序元，你好",
+                content2:"<a href='http://www.baidu.com'>百度一下</a>"
+            }
+        })
+    </script>
+</body>
+
+</html>
