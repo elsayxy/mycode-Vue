@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 全部替换，标签里面的的值[北京]不显示 -->
+        <h2 v-text='message'>北京</h2>
+        <h2 v-text='info'>北京</h2>
+        <!-- 部分替换,这里的[北京]能显示 -->
+        <h2>{{message}}北京</h2>
+
+        <!-- v-text内部进行拼接,这里显示:程序员，你好！... -->
+        <h2 v-text='message+"..."'>北京</h2>
+        <!-- 显示:程序员，你好！...北京 -->
+        <h2>{{message+"..."}}北京</h2>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                message:'程序员，你好！',
+                info:'这里是学些Vue的地方'
+            }
+        })
+    </script>
+</body>
+
+</html>
