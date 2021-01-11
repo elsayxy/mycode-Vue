@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-v-for指令</title>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="增加元素" @click="add">
+        <input type="button" value="移除元素" @click="remove">
+        <!-- 第一种：遍历数组 -->
+        <ul>
+            <!-- item是变量可以变成别的，in是关键字，不能变 -->
+            <li v-for="item in arr">
+                一线城市：{{item}}
+            </li>
+        </ul>
+        <ul>
+            <!-- index是数组的索引 -->
+            <li v-for="(it,index) in arr">
+                第{{index+1}}个一线城市是：{{it}}
+            </li>
+        </ul>
+        <!-- 第二种：遍历对象数组 -->
+        <!-- 在v-for的内部，可以结合其他指令继续使用 -->
+        <h2 v-for="item in vagetables" v-bind:title="item.name">
+            {{item.name}}
+        </h2>
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            data:{
+                arr:["北京","上海","广州","深圳"],
+                vagetables:[
+                    {name:"水煮牛肉"},
+                    {name:"酸辣米线"}
+                ]
+            },
+            methods:{
+                add:function(){
+                    this.vagetables.push({name:"千叶豆腐"});
+                },
+                remove:function(){
+                    this.vagetables.pop();
+                }
+            }
+        })
+    </script>
+</body>
+</html>

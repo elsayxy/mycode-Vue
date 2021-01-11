@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10-v-bind指令</title>
+    <style>
+        .active{
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <!-- 第一种，完整写法 -->
+        <img v-bind:src="imgSrc" alt="">
+        <br>
+        <!-- 第二种，简单写法（推荐） -->
+        <img :src="imgSrc" alt="" :title="imgTitle">
+        <br>
+        <!-- 可以使用字符串拼接 -->
+        <img :src="imgSrc" alt="" :title="imgTitle+'!!' ">
+        <br>
+        <!-- 可以使用三元表达式 -->
+        <img :src="imgSrc" alt="" :title="imgTitle+'!!' " :class="isActive?'active':''"  @click="toggleIsShow">
+        <!-- 使用对象方式的写法 -->
+        <img :src="imgSrc" alt="" :title="imgTitle+'!!' " :class="{active:isActive}"  @click="toggleIsShow">
+
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:".app",
+            data:{
+                imgSrc:"images/play.png",
+                imgTitle:"播放按钮图标",
+                isActive:false
+            },
+            methods:{
+                toggleIsShow:function(){
+                    this.isActive = !this.isActive;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

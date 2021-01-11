@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13-v-on补充</title>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 给事件方法传递参数 -->
+        <input type="button" value="点击" @click="doIt(666,'baobao')">
+        <!-- 自定义事件修饰符 -->
+        <input type="text" @keyup.enter="sayHi">
+    </div>
+    <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        var app = new Vue({
+            el:"#app",
+            methods:{
+                doIt:function(p1,p2){
+                    console.log('Nihao');
+                    console.log(p1,p2);
+                },
+                sayHi:function(){
+                    alert("吃了么？");
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
