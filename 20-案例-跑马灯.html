@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>20-案例-跑马灯</title>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="lang">跑马灯</button>
+    <button @click='stop'>停止</button>
+    <p>{{ msg}}</p>
+  </div>
+
+  <script src="./vue.js"></script>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '跑马灯，动起来了~~！！',
+        intervalId: null
+      },
+      methods: {
+        lang() {
+          if (this.intervalId == null) {
+            this.intervalId = setInterval(() => {
+              var start = this.msg.substring(0, 1)
+              var end = this.msg.substring(1)
+              this.msg = end + start
+            }, 400)
+          }
+        },
+        stop() {
+          console.log(this.intervalId);
+          if (this.intervalId == null) return
+          clearInterval(this.intervalId)
+          this.intervalId = null
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
