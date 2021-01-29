@@ -7,7 +7,7 @@
 </head>
 <body>
     <div id="app">
-        <input type="button" value="修改" @click="setM">
+        <input type="button" value="修改">
         <input type="text" v-model="message" @keyup.enter="getM">
         <div>验证message的值： {{message}}</div>
     </div>
@@ -24,7 +24,7 @@
                     alert(this.message)
                 },
                 setM:function(){
-                    this.message="文字变了吧，哈哈"
+                    this.message=""
                 }
             }
         })
