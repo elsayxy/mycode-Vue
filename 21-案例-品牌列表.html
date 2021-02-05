@@ -21,12 +21,14 @@
         </label> -->
 
         <label for=""><strong>Name:</strong>
-          <input type="text" class="form-control" v-model="name">
+          <!-- 按下键盘enter键，添加品牌 -->
+          <input type="text" class="form-control" v-model="name" @keyup.enter='additem'>
+          <!-- <input type="text" class="form-control" v-model="name" @keyup.f2='additem'> -->
         </label>
 
         <input type="button" value="添加" @click='additem' class="btn btn-primary">
         <label for="" class="keywords"><strong>搜索名称关键字:</strong><input type="text" class="form-control"
-            v-model="keywords">
+            v-model="keywords" v-focus>
         </label>
 
       </div>
@@ -42,10 +44,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for='item in list' :key='item.id_input'>
+        <tr v-for='item in search(keywords)' :key='item.id_input'>
           <td>{{ item.id}}</td>
-          <td>{{ item.name}}</td>
-          <td v-text='item.ctime'></td>
+          <td v-text='item.name'></td>
+          <td>{{item.ctime | dataFormat}}</td>
           <td><a href="#" @click.prevent='deleteItem(item.id)'>删除</a></td>
         </tr>
       </tbody>
@@ -53,6 +55,48 @@
   </div>
 
   <script>
+    // 全局过滤器
+    Vue.filter('dataFormat', function (datastr, patten = '') {
+      var dt = new Date(datastr)
+      var y = dt.getFullYear()
+      var m = (dt.getMonth() + 1).toString().padStart(2, '0')
+      var d = dt.getDate().toString().padStart(2, '0')
+
+      if (patten.toLowerCase() == 'yyyy-mm-dd') {
+        return `${y}-${m}-${d}`
+      } else {
+        var hh = dt.getHours().toString().padStart(2, '0')
+        var mm = dt.getMinutes().toString().padStart(2, '0')
+        var ss = dt.getSeconds().toString().padStart(2, '0')
+        return `${y}-${m}-${d}  ${hh}:${mm}:${ss}`
+      }
+
+    })
+
+    // 自定义全局键盘修饰符
+    // f2:自定义的修饰符名称；113：键盘码
+    Vue.config.keyCodes.f2 = 113
+
+    // 自定义全局指令
+    Vue.directive('focus', {
+      // 每当指令绑定到元素上的时候，会立即执行这个bind函数，只执行一次
+      // 注意：在每个函数中，第一参数永远是el，表示被绑定了指令的那个元素，这个el参数，是一个原生的JS对象
+      // 在元素刚绑定了指令的时候，还没有插入到DOM中去，这时候调用focus方法没有作用
+      // 因为一个元素，只有插入DOM之后，才能获取焦点
+      bind: function (el) {
+        // el.focus()
+      },
+
+      // inserted表示元素插入到DOM中的时候，会执行inserted函数（触发一次）
+      inserted: function (el) {
+        el.focus()
+      },
+
+      // 当VNode更新的时候，会执行updated，可能会触发多次
+      updated: function () { }
+    })
+
+    // 创建vue实例
     var VM = new Vue({
       el: '#app',
       data: {
@@ -80,6 +124,25 @@
               return true
           })
           this.list.splice(index, 1)
+        },
+        search(keywords) {
+          // 方法一
+          // var newList = []
+          // this.list.forEach(item => {
+          //   if (item.name.indexOf(keywords) != -1) {
+          //     newList.push(item)
+          //   }
+          // });
+          // return newList
+
+          // 方法二
+          // 注意：forEach，some，filter，findIndex；这些都是数据的新方法
+          // 都会对数组中的每一项，进行遍历，执行相关的操作
+          return this.list.filter(item => {
+            if (item.name.includes(keywords)) {
+              return item
+            }
+          })
         }
       }
     })

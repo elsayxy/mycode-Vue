@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>32-组件切换.html</title>
+  <script src="./lib/vue.js"></script>
+  <style>
+    .v-enter,
+    .v-leave-to {
+      opacity: 0;
+      transform: translateX(150px);
+    }
+
+    .v-enter-acitve,
+    .v-leave-active {
+      transition: all 0.5s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <p>组件切换方式一</p>
+    <a href="" @click.prevent="show=true">登录</a>
+    <a href="" @click.prevent="show=false">注册</a>
+    <login v-if="show"></login>
+    <register v-else="show"></register>
+    <hr>
+    <p>组件切换方式二</p>
+    <a href="" @click.prevent="comName='login'">登录</a>
+    <a href="" @click.prevent="comName='register'">注册</a>
+    <!-- Vue提供了 component  来展示对应名称的组件 -->
+    <!-- component是一个占位符，：is属性可以用来指定要展示的组件的名称 -->
+    <component :is="comName"></component>
+    <hr>
+    <p>组件切换动画展示</p>
+    <a href="" @click.prevent="comName2='login'">登录</a>
+    <a href="" @click.prevent="comName2='register'">注册</a>
+    <transition mode='out-in'>
+      <!-- 通过mode属性，设置组件切换的模式 -->
+      <component :is="comName2"></component>
+    </transition>
+  </div>
+  <script>
+    // 全局组件
+    Vue.component('login', {
+      template: '<h3>登录组件</h3>',
+    })
+
+    Vue.component('register', {
+      template: '<h3>注册组件</h3>',
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        show: true,
+        comName: 'login',
+        comName2: 'login',
+      },
+      methods: {},
+    })
+  </script>
+</body>
+
+</html>

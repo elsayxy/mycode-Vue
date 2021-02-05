@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>33-组件之间传值.html</title>
+  <script src="./lib/vue.js"></script>
+
+</head>
+
+<body>
+  <template id='tmp2'>
+    <div>
+      <h2>这是子组件</h2>
+      <input type="button" value="调用父组件方法" @click='myclick'>
+    </div>
+  </template>
+
+  <div id="app">
+    <com1 v-bind:parentmsg="msg"></com1>
+    <com2 @show='show'></com2>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '这是父组件的msg值'
+      },
+      methods: {
+        show(para1, para2) {
+          // console.log('这是父组件的show方法' + ',子组件传递过过来的参数：' + para1 + para2);
+          console.log(para1.id, para1.name, para2);
+        }
+      },
+      components: {
+        com1: {
+          template: '<h1>这是子组件----{{parentmsg}}</h1>',
+          props: ['parentmsg']
+        },
+        com2: {
+          template: '#tmp2',
+          data() {
+            return {
+              testobject: { id: 1, name: '大头儿子' }
+            }
+          },
+          methods: {
+            myclick() {
+              // 接收父组件的方法，传递参数
+              // this.$emit('show', '参数1', '参数2')
+              this.$emit('show', this.testobject, 'a')
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>26-使用钩子函数模拟小球半场动画.html</title>
+  <script src="./vue.js"></script>
+  <style>
+    .ball {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background-color: red;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="app">
+    <input type="button" value="加入购物车" @click='show=!show'>
+    <transition @before-enter="beforeEnter" @enter="enter" @after-enter="atferEnter">
+      <div v-if="show" class="ball"></div>
+    </transition>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        show: false
+      },
+      methods: {
+        // beforeEnter表示动画入场之前，此时动画尚未开始。在这里设置元素动画开始之前的样式
+        beforeEnter(el) {
+          el.style.transform = "translate(0,0)"
+        },
+        // enter表示动画开始之后的样式，在这里谁知小球完成动画之后的结束状态
+        enter(el, done) {
+          el.offsetWidth
+          el.style.transform = "translate(150px,450px)"
+          el.style.transition = "all 1s ease"
+          done()
+        },
+        atferEnter(el) {
+          // 动画完成之后，会调用atferEnter
+          this.show = !this.show
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

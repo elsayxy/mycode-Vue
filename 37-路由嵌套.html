@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>37-路由嵌套.html</title>
+  <script src="./lib/vue.js"></script>
+  <script src="./lib/vue-router-v3.5.1.js"></script>
+</head>
+
+<body>
+  <template id='temp1'>
+    <div>
+      <h3>这是account组件</h3>
+
+      <router-link to="/account/login/12/test">登录</router-link>
+      <router-link to="/account/regisiter">注册</router-link>
+      <router-view></router-view>
+    </div>
+  </template>
+
+  <div id="app">
+    <router-link to="/account">Account</router-link>
+    <router-view></router-view>
+  </div>
+
+  <script>
+    const account = { template: '#temp1' }
+    const login = {
+      props: ['id', 'name'],
+      template: '<h2>登录组件--{{id}}----{{name}}</h2>',
+    }
+    const regisiter = { template: '<h2>注册组件</h2>' }
+
+    const routes = [
+      {
+        path: '/account', component: account,
+        children: [
+          {
+            path: 'login/:id/:name',
+            component: login,
+            props: true
+          },
+          { path: 'regisiter', component: regisiter },
+        ]
+      }
+    ]
+
+    const router = new VueRouter({
+      routes
+    })
+
+
+    const vm = new Vue({
+      el: '#app',
+      router
+    })
+  </script>
+</body>
+
+</html>

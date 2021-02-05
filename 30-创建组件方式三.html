@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>30-创建组件方式三</title>
+  <script src="./lib/vue.js"></script>
+</head>
+
+<body>
+  <!-- 在被控制的app外面，使用template元素，定义组件的HTML模板结构 -->
+  <template id="tmp1">
+    <div>
+      <h1>这是通过template元素，在外部定义的组件结构，这个方式有代码的智能提醒和高亮</h1>
+      <h4>这种方式最好用</h4>
+    </div>
+  </template>
+  <template id="tmp2">
+    <div>
+      <h1>这是私有组件</h1>
+    </div>
+  </template>
+  <div id="app">
+    <my-com3></my-com3>
+    <login></login>
+  </div>
+  <script>
+    // 组件的名称，组件的对象名称
+    Vue.component('myCom3', {
+      template: '#tmp1'
+    })
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+      filters: {},
+      directives: {},
+      components: {
+        // 定义实例内部私有组件
+        login: {
+          template: '#tmp2'
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

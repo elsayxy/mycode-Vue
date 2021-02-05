@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>38-路由-命名视图实现经典布局.html</title>
+  <script src="./lib/vue.js"></script>
+  <script src="./lib/vue-router-v3.5.1.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      height: 80px;
+      background-color: orange;
+    }
+
+    .body {
+      display: flex;
+      height: 500px;
+    }
+
+    .left {
+      background-color: limegreen;
+      flex: 2
+    }
+
+    .main {
+      background-color: pink;
+      flex: 8
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <router-link to='/'></router-link>
+    <router-view></router-view>
+    <div class="body">
+      <router-view name='left'></router-view>
+      <router-view name='main'></router-view>
+    </div>
+  </div>
+
+  <script>
+    // 定义组件
+    const header = { template: '<div class="header">头部header区域</div>' }
+    const leftbox = { template: '<div class="left">左侧侧边栏区域</div>' }
+    const mainbox = { template: '<div class="main">主内容显示区域</div>' }
+
+    // 配置路由
+    const routes = [
+      {
+        path: '/',
+        components: {
+          default: header,
+          left: leftbox,
+          main: mainbox
+        }
+      }
+    ]
+
+    // 实例化路由
+    const router = new VueRouter({
+      routes
+    })
+
+    const vm = new Vue({
+      el: '#app',
+      // 挂载路由
+      router
+    })
+  </script>
+</body>
+
+</html>

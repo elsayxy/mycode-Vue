@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>24-axios_vue使用</title>
+  <script src="./vue.js"></script>
+  <!-- <script src="./axios.min.js"></script> -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="button" value="get请求" @click='getInfo'>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+        getInfo() {
+          // 发起get请求
+          // https://autumnfish.cn/api/joke
+          // http://vue.studyit.io/api/getlunbo
+          axios.get('http://vue.studyit.io/api/getlunbo').then(function (resp) {
+            console.log(resp);
+          }, function (error) { })
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

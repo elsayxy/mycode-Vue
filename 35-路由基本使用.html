@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>35-路由基本使用.html</title>
+  <script src="./lib/vue.js"></script>
+  <!-- 导入vue-router -->
+  <script src="./lib/vue-router-v3.5.1.js"></script>
+  <!-- <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script> -->
+  <style>
+    .router-link-active {
+      color: red;
+      font-weight: 700;
+      font-size: 20px;
+      text-decoration: underline;
+    }
+
+    .myclass {
+      color: pink;
+      font-weight: 700;
+      font-size: 20px;
+      text-decoration: underline;
+    }
+
+    .v-enter,
+    .v-leave-to {
+      opacity: 0;
+      transform: translateX(120px);
+    }
+
+    .v-enter-active,
+    .v-leave-acitve {
+      transition: all .8s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <a href="#/login">登陆</a> -->
+    <!-- <a href="#/regisiter">注册</a> -->
+    <router-link to="/login/12" tag="span">登陆</router-link>
+    <router-link to="/regisiter">注册</router-link>
+
+    <!-- 路由出口 -->
+    <transition mode="out-in">
+      <router-view></router-view>
+    </transition>
+  </div>
+
+  <script>
+    // 定义（路由）组件
+    const login = { template: '<h1>登陆组件</h1>' }
+    const regisiter = { template: '<h1>注册组件</h1>' }
+
+    // 定义路由routes
+    const routes = [
+      { path: '/', redirect: './login' },
+      { path: '/login/:id', component: login },
+      { path: '/regisiter', component: regisiter },
+    ]
+    // 导入vue - router包之后，全局对象中，就有了路由的构造函数【VueRouter】
+    // 在new路由对象的时候，可以为构造函数传递一个配置对象
+    // 创建router实例，然后传routes配置
+    const router = new VueRouter({
+      routes,
+      linkActiveClass: 'myclass'
+    })
+
+    const vm = new Vue({
+      el: '#app',
+      // 在根实例上注册路由
+      router,
+    })
+  </script>
+</body>
+
+</html>

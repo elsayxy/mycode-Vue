@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>36-路由传递参数.html</title>
+  <script src="./lib/vue.js"></script>
+  <script src="./lib/vue-router-v3.5.1.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <router-link to="/login/12/test">登录</router-link>
+    <router-link to="/regisiter">注册</router-link>
+
+    <router-view></router-view>
+  </div>
+
+  <script>
+    const login = {
+      props: ['id', 'name'],
+      template: '<h2>登录组件--{{id}}----{{name}}</h2>',
+    }
+    const regisiter = { template: '<h2>注册组件</h2>' }
+
+    const routes = [
+      {
+        path: '/login/:id/:name',
+        component: login,
+        props: true
+      },
+      { path: '/regisiter', component: regisiter },
+      // {
+      //   path: '/login/:id/:name',
+      //   components: { default: login, sidebar: sidebar },
+      //   props: { default: true, sidebar: false }
+      // }
+    ]
+
+    const router = new VueRouter({
+      routes
+    })
+
+
+    const vm = new Vue({
+      el: '#app',
+      router
+    })
+  </script>
+</body>
+
+</html>

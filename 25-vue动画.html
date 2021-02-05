@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>25-vue动画.html</title>
+  <script src="./vue.js"></script>
+  <style>
+    /* v-enter:这是一个时间点，进入之前元素的起始状态，动画还未开始 */
+    /* v-leave-to:这是一个时间点，动画离开之后的终止状态。动画已经结束 */
+    .v-enter,
+    .v-leave-to {
+      opacity: 0;
+      /* 实现位移 */
+      transform: translateX(80px);
+    }
+
+    /* v-enter-active:入场动画的时间段
+    v-enter-active:离场动画的时间段 */
+    .v-enter-active,
+    .v-leave-active {
+      transition: all 0.8s ease;
+    }
+
+
+    .my-enter,
+    .my-leave-to {
+      opacity: 0;
+      transform: translateY(80px);
+    }
+
+    .my-enter-active,
+    .my-leave-active {
+      transition: all 0.8s ease;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <input type="button" value="toggle" @click='show=!show'>
+    <!-- 使用transition元素，把需要被动画控制的元素包裹起来
+    transition元素是vue官方提供的 -->
+    <transition>
+      <p v-if='show'>hello</p>
+    </transition>
+
+    <input type="button" value="toggle2" @click='show2=!show2'>
+    <transition name='my'>
+      <p v-if='show2'>hello2</p>
+    </transition>
+  </div>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        show: true,
+        show2: true
+      }
+    })
+  </script>
+</body>
+
+</html>
